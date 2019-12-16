@@ -22,6 +22,7 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-autoprefixer');
 			grunt.loadNpmTasks('grunt-group-css-media-queries');
 			grunt.loadNpmTasks('grunt-contrib-cssmin');
+			grunt.loadNpmTasks('grunt-replace');
 			grunt.loadNpmTasks('grunt-contrib-pug');
 			tasks = [
 				"less",
@@ -33,9 +34,11 @@ module.exports = function(grunt){
 			];
 			break;
 		case "js":
+			grunt.loadNpmTasks('grunt-contrib-concat');
 			grunt.loadNpmTasks('grunt-contrib-uglify-es');
 			grunt.loadNpmTasks('grunt-contrib-pug');
 			tasks = [
+				"concat",
 				"uglify",
 				"pug"
 			];
@@ -45,6 +48,7 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-autoprefixer');
 			grunt.loadNpmTasks('grunt-group-css-media-queries');
 			grunt.loadNpmTasks('grunt-contrib-cssmin');
+			grunt.loadNpmTasks('grunt-replace');
 			grunt.loadNpmTasks('grunt-contrib-pug');
 			grunt.loadNpmTasks('grunt-contrib-imagemin');
 			grunt.loadNpmTasks('grunt-tinyimg');
@@ -63,16 +67,19 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-autoprefixer');
 			grunt.loadNpmTasks('grunt-group-css-media-queries');
 			grunt.loadNpmTasks('grunt-contrib-cssmin');
+			grunt.loadNpmTasks('grunt-replace');
 			grunt.loadNpmTasks('grunt-contrib-pug');
 			grunt.loadNpmTasks('grunt-ttf2eot');
 			grunt.loadNpmTasks('grunt-ttf2woff');
 			grunt.loadNpmTasks('grunt-ttf2woff2');
 			grunt.loadNpmTasks('grunt-webfont');
+			grunt.loadNpmTasks('grunt-contrib-copy');
 			tasks = [
 				"webfont",
 				"ttf2eot",
 				"ttf2woff",
 				"ttf2woff2",
+				"copy",
 				"less",
 				"autoprefixer",
 				"group_css_media_queries",
@@ -86,6 +93,8 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-autoprefixer');
 			grunt.loadNpmTasks('grunt-group-css-media-queries');
 			grunt.loadNpmTasks('grunt-contrib-cssmin');
+			grunt.loadNpmTasks('grunt-replace');
+			grunt.loadNpmTasks('grunt-contrib-concat');
 			grunt.loadNpmTasks('grunt-contrib-uglify-es');
 			grunt.loadNpmTasks('grunt-contrib-imagemin');
 			grunt.loadNpmTasks('grunt-tinyimg');
@@ -94,6 +103,7 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-ttf2woff');
 			grunt.loadNpmTasks('grunt-ttf2woff2');
 			grunt.loadNpmTasks('grunt-webfont');
+			grunt.loadNpmTasks('grunt-contrib-copy');
 			tasks = [
 				"imagemin",
 				"tinyimg",
@@ -101,11 +111,13 @@ module.exports = function(grunt){
 				"ttf2eot",
 				"ttf2woff",
 				"ttf2woff2",
+				"copy",
 				"less",
 				"autoprefixer",
 				"group_css_media_queries",
 				"replace",
 				"cssmin",
+				"concat",
 				"uglify",
 				"pug"
 			]
@@ -204,13 +216,24 @@ module.exports = function(grunt){
 				dest: '<%= globalConfig.template %>/fonts/'
 			}
 		},
+		copy: {
+			fonts: {
+				expand: true,
+				cwd: 'src/fonts',
+				src: [
+					'*.ttf',
+					'*.otf'
+				],
+				dest: '<%= globalConfig.template %>/fonts/',
+			},
+		},
 		less: {
 			css: {
 				options : {
 					compress: false,
 					ieCompat: false,
 					plugins: [
-						new NpmImportPlugin({prefix: '~'})
+						//new NpmImportPlugin({prefix: '~'})
 					],
 					modifyVars: {
 						hashes: '\'' + uniqid() + '\'',
@@ -250,8 +273,8 @@ module.exports = function(grunt){
 				options: {
 					patterns: [
 						{
-							match: /\/\* *(.*?) *\*\//g,
-							replacement: ' '
+							match: /\/\*[^*]*\*+([^/][^*]*\*+)*\//g,
+							replacement: "\n"
 						},
 						{
 							match: / \/ /g,
@@ -278,6 +301,27 @@ module.exports = function(grunt){
 						dest: '<%= globalConfig.template %>/css/',
 						filter: 'isFile'
 					}
+				]
+			},
+			breaks: {
+				options: {
+					patterns: [
+						{
+							match: /(\r?\n(\s+)?){2,}/g,
+							replacement: "\n$2"
+						},
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten : true,
+						src: [
+							'<%= globalConfig.template %>/css/main.css'
+						],
+						dest: '<%= globalConfig.template %>/css/',
+						filter: 'isFile'
+					},
 				]
 			}
 		},
@@ -344,6 +388,66 @@ module.exports = function(grunt){
 					}
 				]
 			},
+		},
+		pug: {
+			serv: {
+				options: {
+					client: false,
+					pretty: '',
+					separator:  '',
+					//pretty: '\t',
+					//separator:  '\n',
+					data: function(dest, src) {
+						return {
+							"base": "[(site_url)]",
+							"tem_path" : "/assets/templates/projectsoft",
+							"img_path" : "assets/templates/projectsoft/images/",
+							"site_name": "[(site_name)]",
+							"hash": uniqid(),
+							"hash_css": uniqid(),
+							"hash_js": uniqid(),
+							"hash_appjs": uniqid(),
+						}
+					}
+				},
+				files: [
+					{
+						expand: true,
+						cwd: __dirname + '/src/pug/',
+						src: [ '*.pug' ],
+						dest: __dirname + '/assets/templates/projectsoft/',
+						ext: '.html'
+					}
+				]
+			},
+			/*tpl: {
+				options: {
+					client: false,
+					pretty: '',
+					separator:  '',
+					data: function(dest, src) {
+						return {
+							"base": "[(site_url)]",
+							"tem_path" : "/assets/templates/studionions",
+							"img_path" : "assets/templates/studionions/images/",
+							"site_name": "[(site_name)]",
+							"hash": uniqid(),
+							"hash_css": uniqid(),
+							"hash_js": uniqid(),
+							"hash_appjs": uniqid(),
+						}
+					},
+				},
+        		files: [
+	        		{
+						expand: true,
+						dest: __dirname + '/assets/templates/projectsoft/tpl/',
+						cwd:  __dirname + '/src/pug/tpl/',
+						src: '*.pug',
+						ext: '.html'
+					}
+				]
+			}*/
 		},
 	});
 	grunt.registerTask('default', tasks);
