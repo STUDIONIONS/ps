@@ -1,0 +1,43 @@
+{
+  "name": "projectsoft_ru",
+  "version": "1.0.0",
+  "description": "Сайт projectsoft.ru",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STUDIONIONS/ps.git"
+  },
+  "author": "ProjectSoft <projectsoft2009@yandex.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/STUDIONIONS/ps/issues"
+  },
+  "homepage": "https://github.com/STUDIONIONS/ps#readme",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-imagemin": "^3.1.0",
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-pug": "^2.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-group-css-media-queries": "^1.0.1",
+    "grunt-replace": "^1.0.1",
+    "grunt-tinyimg": "^1.0.0",
+    "grunt-ttf2eot": "^1.0.0",
+    "grunt-ttf2woff": "^1.0.1",
+    "grunt-ttf2woff2": "^1.0.1",
+    "grunt-webfont": "^1.7.2",
+    "less-plugin-npm-import": "^2.1.0",
+    "load-grunt-tasks": "^5.1.0",
+    "md5": "^2.2.1",
+    "time-grunt": "^2.0.0"
+  }
+}
