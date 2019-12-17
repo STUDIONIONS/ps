@@ -15,6 +15,7 @@ module.exports = function(grunt){
 		gc = {
 			template: 'assets/templates/projectsoft'
 		};
+	grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 	switch(tsCommand){
 		case "css":
 		case "html":
@@ -62,6 +63,7 @@ module.exports = function(grunt){
 				"cssmin",
 				"pug"
 			];
+			break;
 		case "fonts":
 			grunt.loadNpmTasks('grunt-contrib-less');
 			grunt.loadNpmTasks('grunt-autoprefixer');
