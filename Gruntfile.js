@@ -2,6 +2,9 @@ module.exports = function(grunt){
 	
 	require('time-grunt')(grunt);
 	
+	grunt.file.defaultEncoding = 'utf8';
+	grunt.file.preserveBOM = false;
+	
 	var tsCommand = grunt.option('type') || 'default',
 		fs = require('fs'),
 		chalk = require('chalk'),
@@ -14,9 +17,38 @@ module.exports = function(grunt){
 		tasks = [],
 		gc = {
 			template: 'assets/templates/projectsoft'
+			production: '../projectsoft-web.my/assets/'
 		};
-	grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
+	
 	switch(tsCommand){
+		case "build":
+			grunt.loadNpmTasks('grunt-contrib-less');
+			grunt.loadNpmTasks('grunt-autoprefixer');
+			grunt.loadNpmTasks('grunt-group-css-media-queries');
+			grunt.loadNpmTasks('grunt-contrib-cssmin');
+			grunt.loadNpmTasks('grunt-replace');
+			grunt.loadNpmTasks('grunt-contrib-concat');
+			grunt.loadNpmTasks('grunt-contrib-uglify-es');
+			grunt.loadNpmTasks('grunt-contrib-pug');
+			grunt.loadNpmTasks('grunt-contrib-copy');
+			grunt.loadNpmTasks('grunt-contrib-imagemin');
+			grunt.loadNpmTasks('grunt-tinyimg');
+			tasks = [
+				"imagemin",
+				"tinyimg",
+				"concat",
+				"uglify",
+				"less",
+				"autoprefixer",
+				"group_css_media_queries",
+				"replace",
+				"cssmin",
+				"pug",
+				"copy",
+				"clear"
+			];
+			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
+			break;
 		case "css":
 		case "html":
 			grunt.loadNpmTasks('grunt-contrib-less');
@@ -25,24 +57,32 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-contrib-cssmin');
 			grunt.loadNpmTasks('grunt-replace');
 			grunt.loadNpmTasks('grunt-contrib-pug');
+			grunt.loadNpmTasks('grunt-contrib-copy');
 			tasks = [
 				"less",
 				"autoprefixer",
 				"group_css_media_queries",
 				"replace",
 				"cssmin",
-				"pug"
+				"pug",
+				"copy",
+				"clear"
 			];
+			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
 		case "js":
 			grunt.loadNpmTasks('grunt-contrib-concat');
 			grunt.loadNpmTasks('grunt-contrib-uglify-es');
 			grunt.loadNpmTasks('grunt-contrib-pug');
+			grunt.loadNpmTasks('grunt-contrib-copy');
 			tasks = [
 				"concat",
 				"uglify",
-				"pug"
+				"pug",
+				"copy",
+				"clear"
 			];
+			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
 		case "image":
 			grunt.loadNpmTasks('grunt-contrib-less');
@@ -53,6 +93,7 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-contrib-pug');
 			grunt.loadNpmTasks('grunt-contrib-imagemin');
 			grunt.loadNpmTasks('grunt-tinyimg');
+			grunt.loadNpmTasks('grunt-contrib-copy');
 			tasks = [
 				"imagemin",
 				"tinyimg",
@@ -61,8 +102,11 @@ module.exports = function(grunt){
 				"group_css_media_queries",
 				"replace",
 				"cssmin",
-				"pug"
+				"pug",
+				"copy",
+				"clear"
 			];
+			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
 		case "fonts":
 			grunt.loadNpmTasks('grunt-contrib-less');
@@ -76,6 +120,7 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-ttf2woff2');
 			grunt.loadNpmTasks('grunt-webfont');
 			grunt.loadNpmTasks('grunt-contrib-copy');
+			grunt.loadNpmTasks('grunt-contrib-copy');
 			tasks = [
 				"webfont",
 				"ttf2eot",
@@ -87,8 +132,29 @@ module.exports = function(grunt){
 				"group_css_media_queries",
 				"replace",
 				"cssmin",
-				"pug"
-			]
+				"pug",
+				"copy",
+				"clear"
+			];
+			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
+			break;
+		case "watch":
+			grunt.loadNpmTasks('grunt-contrib-watch');
+			grunt.loadNpmTasks('grunt-contrib-less');
+			grunt.loadNpmTasks('grunt-autoprefixer');
+			grunt.loadNpmTasks('grunt-group-css-media-queries');
+			grunt.loadNpmTasks('grunt-contrib-cssmin');
+			grunt.loadNpmTasks('grunt-replace');
+			grunt.loadNpmTasks('grunt-contrib-concat');
+			grunt.loadNpmTasks('grunt-contrib-uglify-es');
+			grunt.loadNpmTasks('grunt-contrib-imagemin');
+			grunt.loadNpmTasks('grunt-tinyimg');
+			grunt.loadNpmTasks('grunt-contrib-pug');
+			grunt.loadNpmTasks('grunt-contrib-copy');
+			grunt.loadNpmTasks('grunt-clear');
+			tasks = [
+				"watch"
+			];
 			break;
 		default:
 			grunt.loadNpmTasks('grunt-contrib-less');
@@ -101,11 +167,11 @@ module.exports = function(grunt){
 			grunt.loadNpmTasks('grunt-contrib-imagemin');
 			grunt.loadNpmTasks('grunt-tinyimg');
 			grunt.loadNpmTasks('grunt-contrib-pug');
+			grunt.loadNpmTasks('grunt-contrib-copy');
 			grunt.loadNpmTasks('grunt-ttf2eot');
 			grunt.loadNpmTasks('grunt-ttf2woff');
 			grunt.loadNpmTasks('grunt-ttf2woff2');
 			grunt.loadNpmTasks('grunt-webfont');
-			grunt.loadNpmTasks('grunt-contrib-copy');
 			tasks = [
 				"imagemin",
 				"tinyimg",
@@ -121,8 +187,11 @@ module.exports = function(grunt){
 				"cssmin",
 				"concat",
 				"uglify",
-				"pug"
-			]
+				"pug",
+				"copy",
+				"clear"
+			];
+			grunt.verbose.writeln("tsCommand: " + chalk.cyan("default <--> " + tsCommand) + " >>> OK");
 			break;
 	}
 	grunt.initConfig({
@@ -358,6 +427,8 @@ module.exports = function(grunt){
 					'bower_components/slick-carousel/slick/slick.js',
 					'bower_components/js-cookie/src/js.cookie.js',
 					//'src/js/lazysizes.min.js'
+					'bower_components/ps-google-code-prettify/src/prettify.js',
+					//'bower_components/ps-google-code-prettify/src/lang-*.js'
 				],
 				dest: 'test/js/appjs.js'
 			},
@@ -451,6 +522,60 @@ module.exports = function(grunt){
 				]
 			}*/
 		},
+		copy: {
+			main: {
+				expand: true,
+				cwd: 'assets',
+				src: '**',
+				dest: gc.production,
+			},
+		},
+		watch: {
+			js: {
+				files: 'src/**/*.js',
+				tasks: [
+					"concat",
+					"uglify",
+					"pug",
+					"copy",
+					'clear'
+				],
+			},
+			html: {
+				files: [
+					'src/**/*.pug',
+					'src/**/*.less'
+				],
+				tasks: [
+					"less",
+					"autoprefixer",
+					"group_css_media_queries",
+					"replace",
+					"cssmin",
+					"pug",
+					"copy",
+					'clear'
+				],
+			},
+			image: {
+				files: [
+					'src/images/*.*',
+					'src/images/**/*.*'
+				],
+				tasks: [
+					"imagemin",
+					"tinyimg",
+					"less",
+					"autoprefixer",
+					"group_css_media_queries",
+					"replace",
+					"cssmin",
+					"pug",
+					"copy",
+					'clear'
+				],
+			}
+		}
 	});
 	grunt.registerTask('default', tasks);
 }

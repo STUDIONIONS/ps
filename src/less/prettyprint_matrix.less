@@ -1,0 +1,222 @@
+
+pre {
+	&.prettyprint {
+		margin: 0;
+		position: relative;
+		display: block;
+		background-color: black;
+		color: lime;
+		padding-left: 1.154em;
+		padding-right: 1.154em;
+		max-height: 300px;
+		overflow: auto;
+		font-family: monospace;
+		border: unset;
+		&.linenums {
+			padding-left: 0.3em;
+		}
+		&.collapse {
+			max-height: unset;
+		}
+	}
+	.atn,
+	.kwd,
+	.tag {
+		font-weight: 700
+	}
+	.pln {
+		color: #fff;
+	}
+	.pun {
+		color: #00ffcc;
+	}
+	.kwd {
+		color: #00ffcc;
+	}
+	.typ {
+		color: #0f0;
+	}
+	.str {
+		color: #ff0;
+	}
+	.com {
+		color: #888;
+	}
+	.lit {
+		color: #00ffcc
+	}
+	.tag {
+		color: #0f0;
+	}
+	.atn {
+		color: #00ffcc;
+	}
+	.atv {
+		color: #ff5959;
+	}
+	.dec {
+		color: #98fb98
+	}
+	.nocode {
+		background-color: none;
+		color: #000
+	}
+}
+ol.linenums {
+	margin-top: 0;
+	margin-bottom: 0;
+	color: lime;
+	height: 100%;
+	padding-top: 1.154em;
+	padding-bottom: 1.154em;
+	li {
+		&.L0,
+		&.L1,
+		&.L2,
+		&.L3,
+		&.L4,
+		&.L5,
+		&.L6,
+		&.L7,
+		&.L8,
+		&.L9{
+			list-style-type: decimal;
+			background-color: transparent;
+			color: lime;
+			border-left: 1px solid lime;
+			white-space: pre-wrap;
+			padding-left: 1em;
+		}
+	}
+}
+
+
+.codewrapper {
+	margin: 1em 0px;
+	overflow: hidden;
+	display: block;
+	position: relative;
+	font-family: monospace;
+	.codewrapper-buttons {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		position: absolute;
+		top: 0em;
+		right: 1.5em;
+		border-bottom-left-radius: 0.4em;
+		border-bottom-right-radius: 0.4em;
+		overflow: hidden;
+		z-index: 10;
+		&-row {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			margin-right: -0.1em;
+			margin-left: -0.1em;
+		}
+		.btn-code {
+			background-color: rgba(255, 255, 255, .3);
+			color: #fff;
+			margin-right: 0.1em;
+			margin-left: 0.1em;
+			display: block;
+			line-height: 1;
+			padding: 0.2em 0.6em;
+			user-select: none;
+			cursor: pointer;
+			transition: all .3s ease;
+			min-width: 5.6em;
+			text-align: center;
+			&:hover {
+				background-color: white;
+				color: #000;
+			}
+			&.copy::before {
+				content: "Копировать";
+			}
+			&.collapse {
+				display: none;
+				&::before {
+					content: attr(data-content);
+				}
+			}
+		}
+	}
+	&.view--collapse {
+		.codewrapper-buttons {
+			.btn-code {
+				&.collapse {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+@media print {
+	pre,
+	code {
+		.str {
+			color: #000;
+		}
+		.kwd {
+			color: #000;
+			font-weight: 700
+		}
+		.com {
+			color: #000;
+			font-style: italic
+		}
+		.typ {
+			color: #000;
+			font-weight: 700
+		}
+		.lit {
+			color: #000;
+		}
+		.pun {
+			color: #000;
+		}
+		.pln {
+			color: #000;
+		}
+		.tag {
+			color: #000;
+			font-weight: 700
+		}
+		.atn {
+			color: #000;
+		}
+		.atv {
+			color: #000;
+		}
+	}
+	pre {
+		&.prettyprint {
+			background-color: transparent;
+			color: #000;
+			max-height: unset;
+			.prettyprint-buttons {
+				display: none !important;
+			}
+		}
+	}
+	ol.linenums {
+		li {
+			&.L0,
+			&.L1,
+			&.L2,
+			&.L3,
+			&.L4,
+			&.L5,
+			&.L6,
+			&.L7,
+			&.L8,
+			&.L9 {
+				color: #000;
+				border-left: 1px solid #000;
+			}
+		}
+	}
+}

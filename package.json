@@ -4,7 +4,15 @@
   "description": "Сайт projectsoft.ru",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "default": "grunt -v",
+    "build": "grunt --type=build",
+    "css": "grunt --type=css",
+    "html": "grunt --type=html",
+    "js": "grunt --type=js",
+    "image": "grunt --type=image",
+    "fonts": "grunt --type=fonts",
+    "watch": "grunt --type=watch"
   },
   "repository": {
     "type": "git",
@@ -39,5 +47,8 @@
     "load-grunt-tasks": "^5.1.0",
     "md5": "^2.2.1",
     "time-grunt": "^2.0.0"
+  },
+  "dependencies": {
+    "grunt-clear": "^0.2.1"
   }
 }
