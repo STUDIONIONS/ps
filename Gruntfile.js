@@ -16,7 +16,7 @@ module.exports = function(grunt){
 		},
 		tasks = [],
 		gc = {
-			template: 'assets/templates/projectsoft'
+			template: 'assets/templates/projectsoft',
 			production: '../projectsoft-web.my/assets/'
 		};
 	
@@ -44,8 +44,7 @@ module.exports = function(grunt){
 				"replace",
 				"cssmin",
 				"pug",
-				"copy",
-				"clear"
+				"copy"
 			];
 			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
@@ -65,8 +64,7 @@ module.exports = function(grunt){
 				"replace",
 				"cssmin",
 				"pug",
-				"copy",
-				"clear"
+				"copy"
 			];
 			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
@@ -79,8 +77,7 @@ module.exports = function(grunt){
 				"concat",
 				"uglify",
 				"pug",
-				"copy",
-				"clear"
+				"copy"
 			];
 			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
@@ -103,8 +100,7 @@ module.exports = function(grunt){
 				"replace",
 				"cssmin",
 				"pug",
-				"copy",
-				"clear"
+				"copy"
 			];
 			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
@@ -133,8 +129,7 @@ module.exports = function(grunt){
 				"replace",
 				"cssmin",
 				"pug",
-				"copy",
-				"clear"
+				"copy"
 			];
 			grunt.verbose.writeln("tsCommand: " + chalk.cyan(tsCommand) + " >>> OK");
 			break;
@@ -188,8 +183,7 @@ module.exports = function(grunt){
 				"concat",
 				"uglify",
 				"pug",
-				"copy",
-				"clear"
+				"copy"
 			];
 			grunt.verbose.writeln("tsCommand: " + chalk.cyan("default <--> " + tsCommand) + " >>> OK");
 			break;
